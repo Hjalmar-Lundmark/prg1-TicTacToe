@@ -1,23 +1,32 @@
 import javax.swing.*;
+import java.util.Arrays;
 
 public class TicTacToe {
     public static void main(String[] args) {
         String p1X;
         String p2O;
         char[] spelplan = new char[9];
-        for (int j = 0; j < spelplan.length; j++){
-            spelplan[j] = ' ';
-        }
+        Arrays.fill(spelplan, ' ');
 
 
 
         visaSpelplan(spelplan);
         for (int i = 0; i < 69; i++){
-            if (i == 0 || i == 2 ||i == 4 ||i == 6 ||i == 8 ||i == 10){
-                p1Move(spelplan);
+            if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10){
+                p1X = JOptionPane.showInputDialog("Spelare X: " + "Vilken ruta?(1-9)");
+                int p1Xi = Integer.parseInt(p1X);
+                p1Xi = p1Xi - 1;
+                if (spelplan[p1Xi] == ' ') {
+                    spelplan[p1Xi] = 'X';
+                }
             } else {
                 if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9) {
-                    p2Move(spelplan);
+                    p2O = JOptionPane.showInputDialog("Spelare O: " + "Vilken ruta?(1-9)");
+                    int p2Oi = Integer.parseInt(p2O);
+                    p2Oi = p2Oi - 1;
+                    if (spelplan[p2Oi] == ' ') {
+                        spelplan[p2Oi] = 'O';
+                    }
                 }
             }
             visaSpelplan(spelplan);
@@ -26,8 +35,23 @@ public class TicTacToe {
                 System.out.println("X vann");
                 break;
             }
+            if (kollaVinstO(spelplan)){
+                System.out.println("O vann");
+                break;
+            }
+            if (kollaOavgjort(spelplan)){
+                System.out.println("Oavgjort");
+                break;
+            }
 
         }
+    }
+
+    public static boolean kollaOavgjort(char[] spelplan) {
+        if (spelplan[0] == 'X' || spelplan[0] == 'O' && spelplan[1] == 'X' || spelplan[1] == 'O' && spelplan[2] == 'X' || spelplan[2] == 'O' && spelplan[3] == 'X' || spelplan[3] == 'O' && spelplan[4] == 'X' || spelplan[4] == 'O' && spelplan[5] == 'X' || spelplan[5] == 'O' && spelplan[6] == 'X' || spelplan[6] == 'O' && spelplan[7] == 'X' || spelplan[7] == 'O' && spelplan[8] == 'X' || spelplan[8] == 'O' ) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean kollaVinstX(char[] spelplan) {
@@ -43,35 +67,47 @@ public class TicTacToe {
         if (spelplan[0] == 'X' && spelplan[3] == 'X' && spelplan[6] == 'X') {
             return true;
         }
+        if (spelplan[1] == 'X' && spelplan[4] == 'X' && spelplan[7] == 'X') {
+            return true;
+        }
+        if (spelplan[2] == 'X' && spelplan[5] == 'X' && spelplan[8] == 'X') {
+            return true;
+        }
+        if (spelplan[0] == 'X' && spelplan[4] == 'X' && spelplan[8] == 'X') {
+            return true;
+        }
+        if (spelplan[2] == 'X' && spelplan[4] == 'X' && spelplan[6] == 'X') {
+            return true;
+        }
         return false;
     }
 
-    public static void p2Move(char[] spelplan) {
-        String p2O;
-        p2O = JOptionPane.showInputDialog("Spelare X: " + "Vilken ruta?(0-8)");
-        char p2Oc = p2O.charAt(0);
-        int p2Oi = Integer.parseInt(p2O);
-        for (int p = 0; p < spelplan.length; p++) {
-            if (p2Oi == spelplan[p]) {
-                if (spelplan[p] == ' ') {
-                    spelplan[p] = p2Oc;
-                }
-            }
+    public static boolean kollaVinstO(char[] spelplan) {
+        if (spelplan[0] == 'O' && spelplan[1] == 'O' && spelplan[2] == 'O') {
+            return true;
         }
-    }
-
-    public static void p1Move(char[] spelplan) {
-        String p1X;
-        p1X = JOptionPane.showInputDialog("Spelare X: " + "Vilken ruta?(0-8)");
-        char p1Xc = p1X.charAt(0);
-        int p1Xi = Integer.parseInt(p1X);
-        for (int o = 0; o < spelplan.length; o++){
-            if (p1Xi == spelplan[o]){
-                if (spelplan[o] == ' ') {
-                    spelplan[o] = p1Xc;
-                }
-            }
+        if (spelplan[3] == 'O' && spelplan[4] == 'O' && spelplan[5] == 'O') {
+            return true;
         }
+        if (spelplan[6] == 'O' && spelplan[7] == 'O' && spelplan[8] == 'O') {
+            return true;
+        }
+        if (spelplan[0] == 'O' && spelplan[3] == 'O' && spelplan[6] == 'O') {
+            return true;
+        }
+        if (spelplan[1] == 'O' && spelplan[4] == 'O' && spelplan[7] == 'O') {
+            return true;
+        }
+        if (spelplan[2] == 'O' && spelplan[5] == 'O' && spelplan[8] == 'O') {
+            return true;
+        }
+        if (spelplan[0] == 'O' && spelplan[4] == 'O' && spelplan[8] == 'O') {
+            return true;
+        }
+        if (spelplan[2] == 'O' && spelplan[4] == 'O' && spelplan[6] == 'O') {
+            return true;
+        }
+        return false;
     }
 
     public static void visaSpelplan(char[] spelplan) {
