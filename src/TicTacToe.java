@@ -5,59 +5,109 @@ public class TicTacToe {
     public static void main(String[] args) {
         String p1X;
         String p2O;
+        int i = 0;
         char[] spelplan = new char[9];
         int ai = JOptionPane.showConfirmDialog(null, "Solo mode mot ''ai'' eller 1v1 mot person i rummet? (klicka på ja för solo mode)", "Solo mode?", JOptionPane.YES_NO_OPTION);
+        //Artificiell "intelligens"
+        int hardmode = JOptionPane.showConfirmDialog(null, "Hard mode? (klicka på ja för hardmode)", "Solo mode?", JOptionPane.YES_NO_OPTION);
 
         for (int j = 0; j < 10; j++) {
             Arrays.fill(spelplan, ' ');
 
             visaSpelplan(spelplan);
-            for (int i = 0; i < 69; i++) {
-                if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12 || i == 14) {
-                    p1X = JOptionPane.showInputDialog("Spelare X: " + "\nVilken ruta?(1-9)");
-                    int p1Xi = Integer.parseInt(p1X);
-                    p1Xi = p1Xi - 1;
-                    if (spelplan[p1Xi] == ' ') {
-                        spelplan[p1Xi] = 'X';
-                    }
-                } else {
-                    if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13) {
-                        if (ai == 1) {
-                            p2O = JOptionPane.showInputDialog("Spelare O: " + "\nVilken ruta?(1-9)");
-                            int p2Oi = Integer.parseInt(p2O);
-                            p2Oi = p2Oi - 1;
-                            if (spelplan[p2Oi] == ' ') {
-                                spelplan[p2Oi] = 'O';
-                            }
+            if (hardmode == 1){     //ai börjar
+                for (i = 0; i < 69; i++) {
+                    if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12 || i == 14 || i == 16 || i == 18 || i == 20) {
+                        p1X = JOptionPane.showInputDialog("Spelare X: " + "\nVilken ruta?(1-9)");
+                        int p1Xi = Integer.parseInt(p1X);
+                        p1Xi = p1Xi - 1;
+                        if (spelplan[p1Xi] == ' ') {
+                            spelplan[p1Xi] = 'X';
                         }
-                        else {
-                            while (true) {
-                                int random = (int) (Math.random() * 9);
-                                if (spelplan[random] == ' ') {
-                                    spelplan[random] = 'O';
-                                    break;
+                    } else {
+                        if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13 || i == 15 || i == 17 || i == 19 || i == 21) {
+                            if (ai == 1) {
+                                p2O = JOptionPane.showInputDialog("Spelare O: " + "\nVilken ruta?(1-9)");
+                                int p2Oi = Integer.parseInt(p2O);
+                                p2Oi = p2Oi - 1;
+                                if (spelplan[p2Oi] == ' ') {
+                                    spelplan[p2Oi] = 'O';
+                                }
+                            }
+                            else {
+                                while (true) {
+                                    int random = (int) (Math.random() * 9);
+                                    if (spelplan[random] == ' ') {
+                                        spelplan[random] = 'O';
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                visaSpelplan(spelplan);
+                    visaSpelplan(spelplan);
 
-                if (kollaVinstX(spelplan)) {
-                    System.out.println("X vinner");
-                    break;
+                    if (kollaVinstX(spelplan)) {
+                        System.out.println("X vinner");
+                        break;
+                    }
+                    if (kollaVinstO(spelplan)) {
+                        System.out.println("O vinner");
+                        break;
+                    }
+                    if (kollaOavgjort(spelplan)) {
+                        System.out.println("Oavgjort");
+                        break;
+                    }
                 }
-                if (kollaVinstO(spelplan)) {
-                    System.out.println("O vinner");
-                    break;
-                }
-                if (kollaOavgjort(spelplan)) {
-                    System.out.println("Oavgjort");
-                    break;
-                }
-
-
             }
+            else {
+                for (i = 1; i < 69; i++) {
+                    if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10 || i == 12 || i == 14 || i == 16 || i == 18 || i == 20) {
+                        p1X = JOptionPane.showInputDialog("Spelare X: " + "\nVilken ruta?(1-9)");
+                        int p1Xi = Integer.parseInt(p1X);
+                        p1Xi = p1Xi - 1;
+                        if (spelplan[p1Xi] == ' ') {
+                            spelplan[p1Xi] = 'X';
+                        }
+                    } else {
+                        if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13 || i == 15 || i == 17 || i == 19 || i == 21) {
+                            if (ai == 1) {
+                                p2O = JOptionPane.showInputDialog("Spelare O: " + "\nVilken ruta?(1-9)");
+                                int p2Oi = Integer.parseInt(p2O);
+                                p2Oi = p2Oi - 1;
+                                if (spelplan[p2Oi] == ' ') {
+                                    spelplan[p2Oi] = 'O';
+                                }
+                            }
+                            else {
+                                while (true) {
+                                    int random = (int) (Math.random() * 9);
+                                    if (spelplan[random] == ' ') {
+                                        spelplan[random] = 'O';
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    visaSpelplan(spelplan);
+
+                    if (kollaVinstX(spelplan)) {
+                        System.out.println("X vinner");
+                        break;
+                    }
+                    if (kollaVinstO(spelplan)) {
+                        System.out.println("O vinner");
+                        break;
+                    }
+                    if (kollaOavgjort(spelplan)) {
+                        System.out.println("Oavgjort");
+                        break;
+                    }
+                }
+            }
+
             int igen = JOptionPane.showConfirmDialog(null, "Vill du spela igen?", "Spela igen?", JOptionPane.YES_NO_OPTION);
             if (igen == 1){
                 break;
